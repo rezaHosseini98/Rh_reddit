@@ -11,3 +11,10 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model UserProfile{
+  id String @id
+  username String @unique
+  createAt DateTime @default(now()) @map("create_at") @db.Timestamptz(6)
+  @@map("user_profile")
+}
