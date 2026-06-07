@@ -8,7 +8,7 @@ import { SignedIn, SignedOut, UserButton } from "@neondatabase/auth/react";
 export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-300 items-center gap-4 px-4">
+      <div className="mx-auto flex h-14 max-w-300 items-center justify-between gap-4 px-4">
         <Link
           href="/"
           className="flex items-center gap-2 font-semibold tracking-tight text-foreground"
@@ -33,7 +33,10 @@ export function Navbar() {
         <SignedIn>
           <Link
             href="/submit"
-            className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "hidden sm:inline-flex",
+            )}
           >
             Create
           </Link>
