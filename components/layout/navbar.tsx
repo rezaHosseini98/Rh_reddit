@@ -48,7 +48,7 @@ export function Navbar() {
           >
             <Bell className="size-5" />
           </Button>
-          <UserButton />
+          <UserButton size="default" />
         </SignedIn>
         <SignedOut>
           <div className="ml-auto flex items-center gap-2">
