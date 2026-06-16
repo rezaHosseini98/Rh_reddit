@@ -203,3 +203,30 @@ export async function getUserVote(
   const v = row?.value;
   return v === -1 || v === 1 ? v : 0;
 }
+
+export async function getPostById(id: string): Promise<Post | undefined> {
+  const row = await prisma.post.findUnique({ where: { id } });
+  if (!row) return undefined;
+
+  const [tagMap, commentCountMap] = await Promise.all([
+    tagsForPosts([id]),
+    commentCountsForPosts([id]),
+  ]);
+  return mapPostRoW(row, tagMap.get(id) ?? [], commentCountMap.get(id) ?? 0);
+}
+export async function getAuthorById(authorId: string): Promise<User> {
+  const row = await prisma.userProfile.findUnique({ where: { id: authorId } });
+
+  return row
+    ? { id: row.id, username: row.username }
+    : { id: authorId, username: `user_${authorId.slice(0, 6)}` };
+}
+
+export async function getPostScore(postId: string): Promise<number> {
+  const aggregated = await prisma.vote.aggregate({
+    where: { targetType: "post", targetId: postId },
+    _sum: { value: true },
+  });
+
+  return Number(aggregated._sum.value ?? 0);
+}
