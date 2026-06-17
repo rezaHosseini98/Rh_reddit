@@ -1,9 +1,12 @@
+import { ShareButton } from "@/components/feed/share-button";
 import { VoteButtons } from "@/components/feed/vote-buttons";
 import { CommentComposer } from "@/components/post/comment-composer";
+import { CommentThread } from "@/components/post/comment-thread";
 import { Separator } from "@/components/ui/separator";
 import { getSessionUser } from "@/lib/auth";
 import {
   getAuthorById,
+  getCommentTree,
   getPostById,
   getPostScore,
   getUserVote,
@@ -34,6 +37,8 @@ export default async function PostPage({
   const primaryTag = primarySlug
     ? tags.find((t) => t.slug === primarySlug)
     : undefined;
+
+  const commentTree = await getCommentTree(post.id, sessionUser?.id);
 
   return (
     <div className="flex gap-8">
@@ -88,12 +93,7 @@ export default async function PostPage({
                 {post.commentCount} Comments
               </span>
             </div>
-            <button
-              type="button"
-              className="inline-flex items-center gap-1 hover:text-foreground hover:cursor-pointer"
-            >
-              <Share2 className="size-4" /> Share
-            </button>
+            <ShareButton title={post.title} url={`/post/${post.id}`} />
           </div>
         </article>
         <section className="mt-8 rounded-xl border border-border bg-card p-4 md:p-6">
@@ -117,6 +117,11 @@ export default async function PostPage({
               to join the discussion.
             </p>
           )}
+          <CommentThread
+            tree={commentTree}
+            postAuthorId={post.authorId}
+            sessionUser={sessionUser}
+          />
         </section>
       </div>
     </div>
