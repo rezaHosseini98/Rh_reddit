@@ -62,7 +62,12 @@ export function CommentComposer({
             {error}
           </p>
         ) : null}
-        <Button type="submit" size="sm" disabled={pending}>
+        <Button
+          type="submit"
+          size="sm"
+          disabled={pending}
+          className="cursor-pointer"
+        >
           {pending ? "Posting…" : parentId ? "Reply" : "Comment"}
         </Button>
       </div>
