@@ -5,10 +5,9 @@ import {
   batchAuthorsForIds,
   listPostsSorted,
   listTags,
+  tagPostCounts,
 } from "@/lib/db/queries";
-import { FeedSort, Tag } from "@/lib/types";
-
-import Image from "next/image";
+import { FeedSort } from "@/lib/types";
 
 export default async function Home({
   searchParams,
