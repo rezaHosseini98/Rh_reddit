@@ -35,7 +35,7 @@ export function Navbar() {
             href="/submit"
             className={cn(
               buttonVariants({ variant: "outline", size: "sm" }),
-              "hidden sm:inline-flex",
+              "inline-flex",
             )}
           >
             Create
@@ -43,7 +43,7 @@ export function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            className="text-muted-foreground"
+            className="text-muted-foreground hidden sm:inline-flex"
             aria-label="Notifications"
           >
             <Bell className="size-5" />

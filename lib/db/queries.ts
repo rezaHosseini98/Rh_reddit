@@ -1,4 +1,3 @@
-import { promises } from "dns";
 import { EnrichedCommentNode, nestCommentRows } from "../comment-tree";
 import { PostModel } from "../generated/prisma/models";
 import { prisma } from "../prisma";
@@ -80,7 +79,7 @@ export async function listPostsSorted(
   } else {
     mapped.sort((a, b) => {
       const hotB = b.voteScore + 2 * b.post.commentCount;
-      const hotA = a.voteScore + 2 * b.post.commentCount;
+      const hotA = a.voteScore + 2 * a.post.commentCount;
       return hotB - hotA || b.created - a.created;
     });
   }
@@ -106,6 +105,21 @@ async function tagsForPosts(postIds: string[]): Promise<Map<string, string[]>> {
   }
   return m;
 }
+export async function tagPostCounts(): Promise<{ tag: Tag; count: number }[]> {
+  const allTags = await listTags();
+  const rows = await prisma.postTag.groupBy({
+    by: ["tagSlug"],
+    _count: { _all: true },
+  });
+
+  const countMap = new Map(rows.map((r) => [r.tagSlug, r._count._all]));
+
+  return allTags.map((tag) => ({
+    tag,
+    count: countMap.get(tag.slug) ?? 0,
+  }));
+}
+
 async function commentCountsForPosts(
   postIds: string[],
 ): Promise<Map<string, number>> {

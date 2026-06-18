@@ -61,8 +61,9 @@ export function PostCard({
               href={`/?tag=${encodeURIComponent(primaryTag.slug)}`}
               className={cn(
                 "inline-flex rounded-md px-2 py-0.5 text-xs font-medium",
-                "bg-tag-bg text-tag-text",
+                "bg-tag-bg ",
               )}
+              style={{ color: primaryTag.hasColor }}
             >
               #{primaryTag.label}
             </Link>
