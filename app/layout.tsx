@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "RH Reddit",
-  description: "place for search and found answer for tech problems.",
+  description: "A place to search and find solutions to tech problems.",
 };
 
 export default function RootLayout({
