@@ -3,7 +3,7 @@
    <br />
 
    <a href="https://rh-reddit.vercel.app" target="_blank">
-      <img src="public\redit.webp" alt="Project Banner" width="80%">
+      <img src="public/redit.webp" alt="Project Banner" width="80%">
    </a>
 
 <br /><br />
@@ -103,11 +103,15 @@ NEON_AUTH_COOKIE_SECRET=
 
 Replace the placeholder values with your real credentials. You can get DATABASE_URL and NEON_AUTH_BASE_UR by signing up at: [Neon](https://neon.com/)\.(Make sure to enable access to localhost in Neon so your local environment can connect properly to the database.)
 
+**Generate Secrets**
+
 To obtain NEON_AUTH_COOKIE_SECRET, run the following command in the root directory of your project:
 ```bash
 openssl rand -base64 32
 ```
-After setting the values in the .env file, run the following command to execute the schema file and generate the database tables for Neon:
+**Database Setup**
+
+run the following command to execute the schema file and generate the database tables for Neon:
 ```bash
 npm run db:push
 ```
@@ -116,6 +120,7 @@ For generating demo data for use in the project, run the following command:
 npm run db:seed-cv
 ```
 **Running the Project**
+
 After receiving the success message indicating that the data has been successfully transferred, you can start the project using the following command:
 ```bash
 npm run dev
